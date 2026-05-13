@@ -1,0 +1,552 @@
+/* =============================================================================
+ * ECOM Header Mega Menu — styles
+ *
+ * Loaded by includes/assets.php on requests where [ecom_mega_menu] or
+ * [ecom_mobile_menu] is present in the rendered post (or when the
+ * `ecom_mega_menu_should_enqueue` filter forces it).
+ *
+ * Class scoping (kept under the `ecom-` prefix on purpose — see README):
+ *   .ecom-header-container         desktop mega-menu root
+ *   .ecom-mobile-header-container  mobile sticky-header root
+ *   .ecom-menu-overlay             mobile fullscreen overlay
+ *   .ecom-dropdown-featured-*      [projekti_dropdown] markup
+ *   .ecom-dropdown-blog-*          [blog_dropdown] markup
+ *
+ * Section index:
+ *   1. Desktop layout (header container, lijevi/desni nav, links)
+ *   2. Submenus (sub-menu, dropdown, dropdown-sidebar)
+ *   3. Usluge categories + content (left tab list, right card grid)
+ *   4. Hover/active state transitions (text + arrow)
+ *   5. Projekti sidebar + tertiary button
+ *   6. Kontakt submenu (team-column, contact-column)
+ *   7. Featured projects dropdown ([projekti_dropdown])
+ *   8. Featured blog dropdown ([blog_dropdown])
+ *   9. Divi mobile-menu overrides
+ *  10. Mobile sticky header + hamburger + overlay
+ *  11. Responsive show/hide breakpoint
+ * ============================================================================= */
+
+
+/* ---------------------------------------------------------------------------
+ * 1. Desktop layout
+ * ------------------------------------------------------------------------ */
+.ecom-header-container {
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 0;
+    display: grid;
+    grid-template-columns: auto 230px auto;
+    align-items: center;
+}
+
+.ecom-lijevi-izbornik ul,
+.ecom-desni-izbornik ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ecom-lijevi-izbornik li,
+.ecom-desni-izbornik li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+}
+
+.ecom-lijevi-izbornik > ul,
+.ecom-desni-izbornik > ul {
+    display: flex;
+    align-items: center;
+    gap: 100px;
+}
+
+.ecom-lijevi-izbornik > ul { justify-content: right; }
+.ecom-desni-izbornik > ul  { justify-content: left;  }
+
+.ecom-lijevi-izbornik a,
+.ecom-desni-izbornik a {
+    text-decoration: none;
+    color: #2A2730;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+}
+.ecom-lijevi-izbornik a:hover,
+.ecom-desni-izbornik a:hover { opacity: 0.8; }
+
+.ecom-btn--secondary:hover {
+    opacity: 1 !important;
+    background-color: #f5f4f5;
+}
+
+.ecom-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    border-radius: 16px;
+}
+
+.menu-arrow {
+    margin-left: 16px;
+    margin-bottom: 3px;
+}
+
+
+/* ---------------------------------------------------------------------------
+ * 2. Submenus
+ * ------------------------------------------------------------------------ */
+.sub-menu {
+    position: fixed;
+    top: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 820px;
+    padding: 32px 0 32px 32px;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    border: 1px solid #F8F8F8;
+    border-radius: 12px;
+    gap: 40px;
+    background-color: #ffffffcc;
+    backdrop-filter: blur(80px);
+}
+
+.ecom-header-container li.active > .sub-menu {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dropdown {
+    display: flex;
+}
+
+.dropdown-sidebar {
+    border-right: 1px solid #DEDEDE;
+    padding-right: 59px;
+    margin-right: 40px;
+    width: 214px;
+}
+.dropdown-sidebar h3 {
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: 24px;
+    letter-spacing: 0.04rem;
+}
+
+
+/* ---------------------------------------------------------------------------
+ * 3. Usluge categories + content
+ * ------------------------------------------------------------------------ */
+.usluge-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.usluge-categories .category {
+    width: 230px;
+    height: 45px;
+    border-radius: 9999px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px 12px 24px;
+    background: none;
+    border: 1px solid transparent;
+    font-size: 14px;
+    color: #2A2730;
+    cursor: pointer;
+    transition: border 0.3s ease;
+}
+.usluge-categories .category.active                     { border: 1px solid #DEDEDE; }
+.usluge-categories .category:not(.active):hover         { border: 1px solid rgba(222, 222, 222, 0.4); }
+.usluge-categories .category .arrow                     { display: flex; align-items: center; }
+
+.usluge-content .content ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 20px;
+}
+.usluge-content .content ul li {
+    font-size: 14px;
+    color: #2A2730;
+    background-color: #FFFFFF;
+    width: 237px;
+    border-radius: 12px;
+}
+.usluge-content .content ul li a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    padding: 16px;
+    border: 1px solid transparent;
+    transition: background 0.2s ease;
+}
+.usluge-content .content ul li a:hover { opacity: 0.8; }
+.usluge-content .content ul li a h4 {
+    margin: 0 0 12px;
+    padding: 0;
+    font-size: 20px;
+    width: 218px;
+}
+.usluge-content .content ul li a p   { margin: 0; font-size: 14px; }
+.usluge-content p                    { line-height: 1.4; }
+
+
+/* ---------------------------------------------------------------------------
+ * 4. Hover / active state transitions
+ * ------------------------------------------------------------------------ */
+.ecom-lijevi-izbornik a,
+.ecom-desni-izbornik a,
+.ecom-lijevi-izbornik .menu-arrow svg,
+.ecom-desni-izbornik .menu-arrow svg {
+    transition: color 0.3s ease, transform 0.3s ease, stroke 0.3s ease;
+}
+
+.ecom-lijevi-izbornik li:hover > a,
+.ecom-lijevi-izbornik li.active > a,
+.ecom-desni-izbornik li:hover > a,
+.ecom-desni-izbornik li.active > a {
+    color: #5D41B0;
+}
+
+.ecom-lijevi-izbornik li:hover > a .menu-arrow svg,
+.ecom-lijevi-izbornik li.active > a .menu-arrow svg,
+.ecom-desni-izbornik li:hover > a .menu-arrow svg,
+.ecom-desni-izbornik li.active > a .menu-arrow svg {
+    transform: rotate(180deg);
+}
+
+.ecom-lijevi-izbornik li:hover > a .menu-arrow svg path,
+.ecom-lijevi-izbornik li.active > a .menu-arrow svg path,
+.ecom-desni-izbornik li:hover > a .menu-arrow svg path,
+.ecom-desni-izbornik li.active > a .menu-arrow svg path {
+    stroke: #5D41B0 !important;
+}
+
+
+/* ---------------------------------------------------------------------------
+ * 5. Tertiary "VIŠE" button (Projekti / Blog sidebars)
+ * ------------------------------------------------------------------------ */
+.ecom-btn--tertiary--dd {
+    width: 140px;
+    position: relative;
+    border-radius: 0;
+    gap: 16px;
+    height: auto;
+    margin-top: 200px;
+}
+
+.ecom-btn--tertiary--dd::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 44%;
+    height: 1.4px;
+    background-color: #2A2730;
+    transform-origin: right center;
+}
+
+.ecom-btn--tertiary--dd:hover {
+    transform: translateX(-5px);
+    opacity: 1 !important;
+}
+
+
+/* ---------------------------------------------------------------------------
+ * 6. Kontakt submenu — team + contact columns
+ * ------------------------------------------------------------------------ */
+.team-column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-right: 22px;
+    border-right: 1px solid #DEDEDE;
+    width: 290px;
+    margin-left: -14px;
+}
+.team-member        { display: flex; align-items: center; gap: 16px; }
+.team-member-image  { width: 80px; height: 80px; border-radius: 8px; object-fit: cover; }
+.team-member-info   { display: flex; flex-direction: column; }
+.team-member-name   { font-size: 16px; font-weight: 800; color: #2A2730; margin: 0 0 12px 0; padding: 0; }
+.team-member-role   { font-size: 14px; font-weight: 400; color: #5A595E; margin: 0; }
+
+.contact-column {
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+    width: 200px;
+    margin-top: 7px;
+}
+.contact-item   { display: flex; flex-direction: column; }
+.contact-label  { font-size: 14px; font-weight: 400; color: #5A595E; text-transform: uppercase; }
+.contact-link   { font-size: 16px; font-weight: 400; color: #2A2730; text-decoration: underline !important; cursor: pointer; line-height: 1.2; }
+.contact-link:hover { opacity: 0.8; }
+
+
+/* ---------------------------------------------------------------------------
+ * 7. Featured projects dropdown ([projekti_dropdown])
+ *    Markup emitted by includes/dropdowns.php
+ * ------------------------------------------------------------------------ */
+.projekti-dropdown-content { margin-left: -30px; }
+
+.ecom-dropdown-featured-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 36px 0 16px;
+}
+.ecom-dropdown-featured-card {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.3s ease;
+    padding: 0 10px;
+    border-radius: 8px;
+    gap: 20px;
+}
+.ecom-dropdown-featured-card:hover { opacity: 0.9; }
+.ecom-dropdown-featured-image {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+.ecom-dropdown-featured-image img { width: 100%; height: 100%; object-fit: cover; }
+.ecom-dropdown-featured-info      { display: flex; flex-direction: column; justify-content: center; }
+.ecom-dropdown-title              { font-size: 16px; line-height: 20px; margin: 0; padding: 0; color: #2A2730; }
+.ecom-dropdown-client             { font-size: 14px; color: #5A595E; margin: 4px 0 0; }
+
+
+/* ---------------------------------------------------------------------------
+ * 8. Featured blog dropdown ([blog_dropdown])
+ *    Markup emitted by includes/dropdowns.php
+ * ------------------------------------------------------------------------ */
+.ecom-dropdown-blog-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 36px 0 16px;
+}
+.ecom-dropdown-blog-card  { padding: 0; }
+.ecom-dropdown-blog-link  { text-decoration: none; color: inherit; display: block !important; }
+.ecom-dropdown-blog-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    gap: 20px;
+}
+.ecom-dropdown-blog-title {
+    margin: 0;
+    font-size: 16px;
+    line-height: 20px;
+    color: #2A2730;
+    flex-grow: 1;
+    margin-right: 20px;
+    padding-bottom: 0;
+}
+.ecom-dropdown-blog-image {
+    width: 80px;
+    height: 53px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+
+/* ---------------------------------------------------------------------------
+ * 9. Divi default mobile-menu overrides
+ * ------------------------------------------------------------------------ */
+.et_mobile_menu {
+    border: none !important;
+    margin-top: 40px;
+}
+.et_mobile_menu li a {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 2;
+    border: none;
+}
+
+
+/* ---------------------------------------------------------------------------
+ * 10. Mobile sticky header + hamburger + overlay
+ * ------------------------------------------------------------------------ */
+.ecom-mobile-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px !important;
+    background-color: #ffffff;
+
+    /* Sticky header */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    /* Height = hamburger (50px) + 20px top + 20px bottom = 90px */
+    height: 90px;
+    box-sizing: border-box;
+
+    transition: transform 0.3s ease-in-out;
+    z-index: 10000;
+}
+
+/* Optional spacer (script.js auto-applies body padding-top instead) */
+.ecom-header-spacer {
+    display: block;
+    width: 100%;
+    height: 90px;
+}
+
+/* Toggled by script.js scroll-hide logic */
+.ecom-header-hidden { transform: translateY(-100%); }
+
+/* Logo background SVG (encoded inline to avoid an extra HTTP request) */
+.ecom-logo {
+    display: block;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40.0005 30.4285C40.0005 33.1871 39.0516 35.5541 37.3741 37.257C36.8488 37.8019 35.9338 37.4102 35.9338 36.6439V29.8666C35.9338 29.2025 35.4085 28.6746 34.7476 28.6746H33.7987C33.1379 28.6746 32.6126 29.2025 32.6126 29.8666V38.9087C32.6126 39.4366 32.206 39.8794 31.6976 39.9304C31.4604 39.9475 31.2062 39.9645 30.9521 39.9645C30.6979 39.9645 30.4607 39.9475 30.2234 39.9304C29.6982 39.8794 29.2915 39.4366 29.2915 38.9087V29.8666C29.2915 29.2025 28.7662 28.6746 28.1054 28.6746H27.1565C26.4956 28.6746 25.9704 29.2025 25.9704 29.8666V36.678C25.9704 37.4273 25.0553 37.8189 24.5301 37.291C22.9034 35.6393 21.8867 33.3745 21.8867 30.8713C21.8867 26.8185 24.5131 23.5149 28.1732 22.2889C28.7154 22.1016 29.2915 22.5102 29.2915 23.1062V24.9964C29.2915 25.5584 29.749 26.0181 30.3082 26.0181H31.596C32.1551 26.0181 32.6126 25.5584 32.6126 24.9964V22.953C32.6126 22.391 33.1549 21.9653 33.6971 22.1356C37.2893 23.1914 40.0005 26.5971 40.0005 30.4285Z' fill='%235D41B0'/%3E%3Cpath d='M36.8674 11.0507H38.9552C39.6686 11.0507 40.1732 11.7676 39.947 12.4496C38.6769 16.0865 35.2318 18.6744 31.1778 18.6744C26.0451 18.6744 21.8867 14.4954 21.8867 9.33718C21.8867 4.179 26.0277 0 31.1604 0C35.2144 0 38.6595 2.60532 39.9296 6.22478C40.1732 6.90671 39.6686 7.62361 38.9378 7.62361H36.85C36.4498 7.62361 36.0844 7.3963 35.9104 7.02911C35.0057 5.14069 33.0222 3.88175 30.7777 4.03911C28.1678 4.21397 26.0625 6.34718 25.8885 8.96998C25.6797 12.0649 28.1156 14.6352 31.1604 14.6352C33.2483 14.6352 35.0578 13.4113 35.9104 11.6452C36.1018 11.2955 36.4672 11.0507 36.8674 11.0507Z' fill='%235D41B0'/%3E%3Cpath d='M8.47298 0.152344C11.2672 0.152344 13.6648 1.12305 15.3896 2.83912C15.9416 3.37647 15.5449 4.31251 14.7687 4.31251H7.88653C7.21383 4.31251 6.67913 4.84986 6.67913 5.52589V6.49659C6.67913 7.17262 7.21383 7.70997 7.88653 7.70997H17.0455C17.5802 7.70997 18.0287 8.12599 18.0804 8.64601C18.0977 8.88869 18.1149 9.1487 18.1149 9.40871C18.1149 9.66872 18.0977 9.91139 18.0804 10.1541C18.0287 10.6914 17.5802 11.1074 17.0455 11.1074H7.88653C7.21383 11.1074 6.67913 11.6448 6.67913 12.3208V13.2915C6.67913 13.9676 7.21383 14.5049 7.88653 14.5049H14.7859C15.5449 14.5049 15.9416 15.4409 15.4069 15.9783C13.7338 17.6424 11.4397 18.6824 8.90419 18.6824C4.79904 18.6824 1.45282 15.9956 0.210931 12.2515C0.0211968 11.6968 0.435161 11.1074 1.03886 11.1074H2.9362C3.5054 11.1074 3.97111 10.6394 3.97111 10.0674V8.75001C3.97111 8.17799 3.5054 7.70997 2.9362 7.70997H0.866375C0.297173 7.70997 -0.13404 7.15528 0.0384453 6.6006C1.1251 2.92579 4.57481 0.152344 8.47298 0.152344Z' fill='%235D41B0'/%3E%3Cpath d='M9.05745 21.7949C4.0538 21.7949 0 25.8688 0 30.8973C0 35.9257 4.0538 39.9996 9.05745 39.9996C14.0611 39.9996 18.1149 35.9257 18.1149 30.8973C18.1149 25.8688 14.0611 21.7949 9.05745 21.7949ZM9.05745 36.0791C6.20791 36.0791 3.90115 33.7609 3.90115 30.8973C3.90115 28.0336 6.20791 25.7154 9.05745 25.7154C11.907 25.7154 14.2138 28.0336 14.2138 30.8973C14.2138 33.7609 11.907 36.0791 9.05745 36.0791Z' fill='%235D41B0'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.ecom-hamburger {
+    display: block;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    position: relative;
+    z-index: 10001;
+
+    background-image: url("data:image/svg+xml,%3Csvg width='50' height='50' viewBox='0 0 50 50' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='50' height='50' rx='25' fill='%23F8F8F8'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.ecom-hamburger .bar {
+    position: absolute;
+    width: 20.25px;
+    height: 3px;
+    background-color: #555259;
+    border-radius: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.3s ease-in-out;
+    transform-origin: center;
+}
+.ecom-hamburger .bar:nth-child(1) { top: 21px; }
+.ecom-hamburger .bar:nth-child(2) { top: 29px; }
+
+.ecom-hamburger.active .bar:nth-child(1) {
+    top: 23.5px;
+    transform: translateX(-50%) rotate(45deg);
+}
+.ecom-hamburger.active .bar:nth-child(2) {
+    top: 23.5px;
+    transform: translateX(-50%) rotate(-45deg);
+}
+
+.ecom-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150vh;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    transform: translateX(100%);
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0s 0.3s,
+        transform 0s 0.3s,
+        margin-top 0s 0.3s;
+
+    z-index: 9998;
+}
+
+.ecom-menu-overlay.open {
+    opacity: 1;
+    visibility: visible;
+    margin-top: -360px;
+    transform: translateX(0);
+
+    transition:
+        transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        opacity 0s,
+        margin-top 0s;
+}
+
+.ecom-nav-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 30px;
+    padding: 0 23px;
+    box-sizing: border-box;
+}
+
+.ecom-nav-items a {
+    text-decoration: none;
+    color: #2A2730;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+
+    width: 100%;
+    text-align: center;
+    display: block;
+    transition: color 0.2s ease;
+}
+.ecom-nav-items a:hover { opacity: 0.7; }
+
+.ecom-nav-items a.ecom-btn-kontakt {
+    background-color: #2A2730;
+    color: #ffffff;
+    padding: 15px 0;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 30px;
+}
+
+
+/* ---------------------------------------------------------------------------
+ * 11. Responsive show/hide breakpoint
+ *
+ *    Both shortcodes can safely be placed on the same page — this rule
+ *    auto-shows the desktop header above 980px and the mobile header
+ *    below it. Override with your own media query if needed.
+ * ------------------------------------------------------------------------ */
+@media (max-width: 980px) {
+    .ecom-header-container        { display: none; }
+}
+@media (min-width: 981px) {
+    .ecom-mobile-header-container,
+    .ecom-menu-overlay            { display: none !important; }
+}
