@@ -1,0 +1,120 @@
+/* Only apply these styles on screens 980px and smaller */
+@media screen and (max-width: 980px) {
+    
+    /* 1. Reset & Wrapper */
+    #ecom-mobile-nav-wrapper {
+        display: block;
+        position: relative;
+        width: 100%;
+        background: #fff;
+        font-family: 'Inter', sans-serif; /* Or your theme font */
+        z-index: 99999;
+    }
+
+    /* 2. Header Bar */
+    .ecom-mobile-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 24px;
+        background: #fff;
+    }
+
+    .ecom-logo img {
+        height: 32px; /* Adjust based on your logo */
+        width: auto;
+    }
+
+    /* 3. Hamburger Button */
+    .ecom-hamburger {
+        background: #F4F4F5; /* Light grey circle */
+        border: none;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        cursor: pointer;
+    }
+
+    .ecom-hamburger span {
+        display: block;
+        width: 18px;
+        height: 2px;
+        background-color: #1A1A1A;
+        transition: 0.3s;
+    }
+
+    /* Hamburger Animation state */
+    .ecom-hamburger.is-active span:nth-child(1) {
+        transform: translateY(3px) rotate(45deg);
+    }
+    .ecom-hamburger.is-active span:nth-child(2) {
+        transform: translateY(-3px) rotate(-45deg);
+    }
+
+    /* 4. Overlay Menu */
+    .ecom-mobile-overlay {
+        display: none; /* Hidden by default */
+        position: fixed;
+        top: 88px; /* Height of header bar */
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 88px);
+        background: #fff;
+        padding-top: 40px;
+        flex-direction: column;
+        align-items: center;
+        overflow-y: auto;
+    }
+
+    .ecom-mobile-overlay.is-open {
+        display: flex;
+    }
+
+    /* 5. Links */
+    .ecom-mobile-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+        width: 100%;
+    }
+
+    .ecom-mobile-links a {
+        text-decoration: none;
+        color: #1A1A1A;
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+    }
+
+    /* 6. Contact Button */
+    .ecom-cta-container {
+        margin-top: 20px;
+        width: 100%;
+        padding: 0 24px;
+        box-sizing: border-box;
+    }
+
+    .ecom-btn-contact {
+        display: block;
+        width: 100%;
+        background-color: #262629; /* Dark button color */
+        color: #fff !important;
+        text-align: center;
+        padding: 16px;
+        border-radius: 50px; /* Full rounded pill shape */
+        font-weight: 600;
+    }
+}
+
+/* Hide entirely on desktop */
+@media screen and (min-width: 981px) {
+    #ecom-mobile-nav-wrapper {
+        display: none !important;
+    }
+}
